@@ -9,54 +9,65 @@ const scanner = new Html5QrcodeScanner(
   },
   false
 );
+
+//html5QrcodeScanner.render(onScanSuccess, onScanFailure); [From readme.md]
 scanner.render(success, error);
 
+//function onScanSuccess(decodedText, decodedResult) {}    [From readme.md]
 function success(text, result) {
-  const reader = document.getElementById("reader");
-  const h2 = document.createElement("h2");
-  const p2 = document.createElement("p");
-  const p = document.createElement("p");
-  const a = document.createElement("a");
+  if (result.format.formatName === "EAN_13") {
+    const reader = document.getElementById("reader");
+    const h2 = document.createElement("h2");
+    const p2 = document.createElement("p");
+    const p = document.createElement("p");
+    const a = document.createElement("a");
 
-  h2.textContent = "Success!";
-  p2.textContent = text;
-  console.log(result);
-  a.href = result;
-  a.textContent = result;
-  p.appendChild(a);
+    h2.textContent = "Success!";
+    p2.textContent = text;
+    a.href = result;
 
-  document.body.appendChild(h2);
-  document.body.appendChild(p2);
-  document.body.appendChild(p);
-  scanner.clear();
-  reader.remove();
+    console.log(result);
 
-  let data = {
-    barcode: text,
-  };
-  fetch("/API/getListGlobalItems", {
-    method: "POST", 
-    mode: "cors", 
-    cache: "no-cache",
-    credentials: "same-origin", 
-    headers: {
-      "Content-Type": "application/json",
-  
-    },
-    redirect: "follow", 
-    referrerPolicy: "no-referrer", 
-    body: JSON.stringify(data),
-  }).then((response) => {
-    if (response.ok) {
-      return response.json();
-    }
-    else{
-      throw new Error("response was not in the 200 range ");
-    }
-  })
-  .then(json => {
-    console.log(json);
-  });
+    a.textContent = result;
+    p.appendChild(a);
+
+    document.body.appendChild(h2);
+    document.body.appendChild(p2);
+    document.body.appendChild(p);
+    scanner.clear();
+    reader.remove();
+
+    let data = {
+      barcode: text,
+    };
+
+    fetch("/API/getListGlobalItems", {
+      //Fetches promise from /API/getListGlobalItems, which resolves to the "response" object defined inside the endpoint "/API/getListGlobalItems"
+      method: "POST", //Post request
+      mode: "cors", //Allows non-host's to interact with API/getListGlobalItems
+      cache: "no-cache", //Prevent cached data from interacting with the request, this ensures the response from "/API/waisteditem" is up to date
+      credentials: "same-origin", //Ensures that the server never sends cookies, cache etc. unless the request is coming from the same origin meaning, the same domain, port etc.
+      headers: {
+        "Content-Type": "application/json", //Specicies content type, we're sending with the POST request
+      },
+      redirect: "follow", //If the response object contains code to redirect our page, this ensures we follow the redirect
+      referrerPolicy: "no-referrer", //Does not scan the users browsing history
+      body: JSON.stringify(data), //"body" is a POST/PUT specific property which specicies the payload send to the server .JSON.stringify converts the "data" variable into .json string
+    })
+      .then((response) => {
+        //The resolved promise from fetch(/API/waisteditem) is stored in "response" parameter
+        if (response.ok) {
+          //If response given by fetch("/API/waisteditem") is inside [200:299] range,
+          return response.json(); //When chaining promises, "return" is needed. This makes reponse.json() tha argument fro .then(json=>{}
+        } else {
+          throw new Error("response was not in the 200 range "); //throw = generate error
+        }
+      })
+      .then((json) => {
+        //Takes the previously "return response.json();" as input
+        console.log(json);
+      });
+  }
 }
 
 function error(result) {

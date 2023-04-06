@@ -136,16 +136,44 @@ router.get("/API/getListGlobalItems", async (req, res) => {
 
 router.post("/API/getListGlobalItems", verifyToken, (req, res) => {
   const filePath = path.resolve() + `/Global-Items/Global-Items.json`;
-  fs.promises.readFile(filePath)
-    .then((data) => JSON.parse(data))
-    .then((json) => {
+  fs.promises.readFile(filePath)                                            //.promises treat data from filePath as a promise
+    .then((data) => JSON.parse(data))                                       //Converts read data to json format
+    .then((json) => {                                                       //Takes read data as input 
       let found = false;
-      console.log("barcode is " + req.body.barcode);
+      console.log("barcode is " + req.body.barcode);                        //
+
       for (let i = 0; i < json.length; i++) {
         if (json[i].barcode != undefined && json[i].barcode == req.body.barcode) {
-          found = true;
+          found = json[i].barcode;
           break;
         }
+      }
+      if(!found)
+      {
+        fs.promises.readFile(path.resolve() + `/data/Users/${req.user.username}/Barcodes.json`)
+        .then((data) => JSON.parse(data))
+        .then((json) => {
+          for (let i = 0; i < json.length; i++) {
+            if (json[i].barcode != undefined && json[i].barcode == req.body.barcode) {
+              found = json[i].barcode;
+              break;
+            }
+            if(!found)
+            {
+              res.json({msg:"create new"})
+            }
+            else{
+              res.json({msg:"adding found"})
+            }
+          }
+        })
+        .catch(err)
+        {
+          console.log()
+        }
+      }
+      else{
+        res.json({msg:"adding found"})
       }
     })
     .catch((error) => {
