@@ -5,8 +5,8 @@ import router from './routes.js';
 import https from "https";
 import fs from "fs";
 
-const privateKey = fs.readFileSync("./data/SSL/key.pem");
-const certificate = fs.readFileSync("./data/SSL/csr.pem");
+const privateKey = fs.readFileSync("/etc/letsencrypt/live/mealmate.otterhosting.net/privkey.pem");
+const certificate = fs.readFileSync("/etc/letsencrypt/live/mealmate.otterhosting.net/cert.pem");
 
 app.use(express.static("public"));
 app.set("port", process.env.PORT || 3000);
