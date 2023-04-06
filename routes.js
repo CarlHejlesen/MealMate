@@ -140,7 +140,7 @@ router.post("/API/getListGlobalItems", verifyToken, (req, res) => {
     .then((data) => JSON.parse(data))                                       //Converts read data to json format
     .then((json) => {                                                       //Takes read data as input 
       let found = false;
-      console.log("barcode is " + req.body.barcode);                        //Takes the data 
+      console.log("barcode is " + req.body.barcode);                        //req.body.barcode = payload as defined in the fetch from html5.js
 
       for (let i = 0; i < json.length; i++) {
         if (json[i].barcode != undefined && json[i].barcode == req.body.barcode) {
@@ -158,14 +158,14 @@ router.post("/API/getListGlobalItems", verifyToken, (req, res) => {
               found = json[i].barcode;
               break;
             }
-            if(!found)
+          }
+          if(!found)
             {
               res.json({msg:"create new"})
             }
             else{
               res.json({msg:"adding found"})
             }
-          }
         })
         .catch((err)=>{
             console.log(err)
