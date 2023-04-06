@@ -68,6 +68,10 @@ function success(text, result) {
         console.log(json);
       });
   }
+
+  else{
+    console.log("Not ean13")
+  }
 }
 
 function error(result) {

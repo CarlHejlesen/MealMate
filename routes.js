@@ -150,7 +150,7 @@ router.post("/API/getListGlobalItems", verifyToken, (req, res) => {
       }
       if(!found)
       {
-        fs.promises.readFile(path.resolve() + `/data/Users/${req.user.username}/Barcodes.json`)
+        fs.promises.readFile(path.resolve() + `/data/USERS/${req.user.username}/Barcodes.json`)
         .then((data) => JSON.parse(data))
         .then((json) => {
           for (let i = 0; i < json.length; i++) {
@@ -169,7 +169,7 @@ router.post("/API/getListGlobalItems", verifyToken, (req, res) => {
         })
         .catch(err)
         {
-          console.log()
+          console.log(err)
         }
       }
       else{
