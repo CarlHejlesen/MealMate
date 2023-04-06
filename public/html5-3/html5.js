@@ -1,36 +1,32 @@
-'use strict'; //Set the entire html5.js to strict mode
-
-//IMPORTS
-import {Html5QrcodeScanner} from "html5-qrcode"
-import {Html5Qrcode} from "html5-qrcode"
-
-//CONST
-const ctx = canvas.getContext('2d');  //.getContext method sets the context of the "canvas" HTML, in this case, it's used to make the canvas 2D
-const qrCodeReader = new Html5Qrcode('reader'); //Assigns a new instance of Html5Qrcode to qrCodeReader. "new" is required because Html5Qrcode is already defined in Modules
-const video = document.createElement('video');  //Creates HTML "video" element" - Typically used for video input, files, cam etc.
-const canvas = document.createElement('canvas');  //Creates HTML "canvas" element"  - Typically used for drawing, generating and programming a canvas
-
-//EVENTLISTENERS
-document.getElementById('startButton').addEventListener('click', () => {
-  startCamera();
+const scanner = new Html5QrcodeScanner("reader",{
+  qrbox:{
+    width: 250,
+    height: 250
+  },
+  fps: 20
 });
+scanner.render(success, error);
 
-//FUNCTIONS
-function onScanSuccess(decodedText, decodedResult) {
-  // handle the scanned code as you like, for example:
-  alert(`Code matched = ${decodedText}`);
-  console.log(`Code matched = ${decodedText}`, decodedResult);
+function success(result) {
+  const reader = document.getElementById('reader');
+  const h2 = document.createElement('h2');
+  h2.textContent = 'Success!';
+  const p = document.createElement('p');
+  const a = document.createElement('a');
+  a.href = result;
+  a.textContent = result;
+  p.appendChild(a);
+
+  while (reader.firstChild) {
+    reader.removeChild(reader.firstChild);
+  }
+  document.body.appendChild(h2);
+  document.body.appendChild(p);
+
+  scanner.clear();
+  reader.remove();
 }
 
-function onScanFailure(error) {
-  // handle scan failure, usually better to ignore and keep scanning.
-  // for example:
-  console.warn(`Code scan error = ${error}`);
+function error(result) {
+  console.log(error);
 }
-
-let html5QrcodeScanner = new Html5QrcodeScanner(
-  "reader",
-  { fps: 10, qrbox: {width: 250, height: 250} },
-  /* verbose= */ false);
-  html5QrcodeScanner.render(onScanSuccess, onScanFailure);
-  
