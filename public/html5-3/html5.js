@@ -15,6 +15,7 @@ function success(text, result) {
   const p2 = document.createElement('p');
   const a = document.createElement('a');
   p2.textContent = text;
+  console.log(result);
   a.href = result;
   a.textContent = result;
   p.appendChild(a);
