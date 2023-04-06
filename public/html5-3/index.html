@@ -19,19 +19,29 @@
     });
     scanner.render(success, error);
 
-    function success(result){
-      document.getElementById('result)').innerHTML =
-      `
-      <h2>Success!</h2>
-      <p><a href=">${result}"</a></p>
-      `
+    function success(result) {
+      const reader = document.getElementById('reader');
+      const h2 = document.createElement('h2');
+      h2.textContent = 'Success!';
+      const p = document.createElement('p');
+      const a = document.createElement('a');
+      a.href = result;
+      a.textContent = result;
+      p.appendChild(a);
+
+      while (reader.firstChild) {
+        reader.removeChild(reader.firstChild);
+      }
+      reader.appendChild(h2);
+      reader.appendChild(p);
 
       scanner.clear();
-      document.getElementById('reader').remove();    }
+      reader.remove();
+    }
 
-    function error(result){
-      console.log(error)
-}
+    function error(result) {
+      console.log(error);
+    }
   </script>
 </body>
 </html>
