@@ -48,7 +48,7 @@ function success(text, result) {
     body: JSON.stringify(data),
   }).then((response) => {
     if (response.ok) {
-      JSON(response);
+      return response.json();
     }
     else{
       throw new Error("response was not in the 200 range ");
