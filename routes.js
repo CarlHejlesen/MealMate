@@ -147,7 +147,6 @@ router.post("/API/getListGlobalItems", verifyToken, (req, res) => {
           break;
         }
       }
-      console.log("the item was found" + found);
     })
     .catch((error) => {
       console.log(error);
