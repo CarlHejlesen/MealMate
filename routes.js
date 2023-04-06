@@ -137,7 +137,7 @@ router.get("/API/getListGlobalItems", async (req, res) => {
 router.post("/API/getListGlobalItems", verifyToken, (req, res) => {
   const filePath = path.resolve() + `/Global-Items/Global-Items.json`;
   fs.promises.readFile(filePath)
-    .then((data) => JSON(data))
+    .then((data) => JSON.parse(data))
     .then((json) => {
       let found = false;
       for (let i = 0; i < json.length; i++) {
