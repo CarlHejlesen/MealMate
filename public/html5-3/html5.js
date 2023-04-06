@@ -65,12 +65,8 @@ function success(text, result) {
       })
       .then((json) => {
         //Takes the previously "return response.json();" as input
-        console.log(json);
+        alert(json.msg);
       });
-  }
-
-  else{
-    console.log("Not ean13")
   }
 }
 

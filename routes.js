@@ -167,10 +167,10 @@ router.post("/API/getListGlobalItems", verifyToken, (req, res) => {
             }
           }
         })
-        .catch(err)
-        {
-          console.log(err)
-        }
+        .catch((err)=>{
+            console.log(err)
+        })
+
       }
       else{
         res.json({msg:"adding found"})
