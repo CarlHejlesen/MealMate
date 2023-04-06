@@ -140,13 +140,14 @@ router.post("/API/getListGlobalItems", verifyToken, (req, res) => {
     .then((data) => JSON.parse(data))
     .then((json) => {
       let found = false;
+      console.log("barcode is " = req.body.barcode);
       for (let i = 0; i < json.length; i++) {
         if (json[i].barcode != undefined && json[i].barcode == req.body.barcode) {
           found = true;
           break;
         }
       }
-      console.log(found);
+      console.log("the item was found" + found);
     })
     .catch((error) => {
       console.log(error);

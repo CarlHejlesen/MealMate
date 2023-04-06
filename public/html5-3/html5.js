@@ -2,8 +2,8 @@ const scanner = new Html5QrcodeScanner(
   "reader",
   {
     qrbox: {
-      width: 250,
-      height: 250,
+      width: 500,
+      height: 500,
     },
     fps: 20,
   },
