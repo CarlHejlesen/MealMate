@@ -38,7 +38,7 @@ function success(text, result) {
     reader.remove();
 
     let data = {
-      barcode: text                   //Object 'data' takes 
+      barcode: text                   //Object stores text parameter from function success
     };
 
     fetch("/API/getListGlobalItems", {
@@ -55,6 +55,7 @@ function success(text, result) {
       body: JSON.stringify(data), //"body" is a POST/PUT specific property which specicies the payload send to the server .JSON.stringify converts the "data" variable into .json string
     })
       .then((response) => {
+        alert("got here");
         //The resolved promise from fetch(/API/waisteditem) is stored in "response" parameter
         if (response.ok) {
           //If response given by fetch("/API/waisteditem") is inside [200:299] range,
