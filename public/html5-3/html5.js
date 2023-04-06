@@ -28,5 +28,8 @@ function success(result) {
 }
 
 function error(result) {
-  console.log(error);
+  setTimeout(() => {
+    console.log(error);
+  }, 1000);
+  
 }
