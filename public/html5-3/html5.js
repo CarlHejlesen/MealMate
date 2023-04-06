@@ -10,19 +10,17 @@ scanner.render(success, error);
 function success(text, result) {
   const reader = document.getElementById('reader');
   const h2 = document.createElement('h2');
-  h2.textContent = 'Success!';
-  const p = document.createElement('p');
   const p2 = document.createElement('p');
+  const p = document.createElement('p');
   const a = document.createElement('a');
+
+  h2.textContent = 'Success!';
   p2.textContent = text;
   console.log(result);
   a.href = result;
   a.textContent = result;
   p.appendChild(a);
 
-  while (reader.firstChild) {
-    reader.removeChild(reader.firstChild);
-  }
   document.body.appendChild(h2);
   document.body.appendChild(p);
   document.body.appendChild(p2);
