@@ -10,12 +10,12 @@ const scanner = new Html5QrcodeScanner(
   false
 );
 
-//html5QrcodeScanner.render(onScanSuccess, onScanFailure); [From readme.md]
+//html5QrcodeS  `canner.render(onScanSuccess, onScanFailure); [From readme.md]
 scanner.render(success, error);
 
 //function onScanSuccess(decodedText, decodedResult) {}    [From readme.md]
 function success(text, result) {
-  if (result.format.formatName === "EAN_13") {
+  if (result.result.format.formatName === "EAN_13") {
     const reader = document.getElementById("reader");
     const h2 = document.createElement("h2");
     const p2 = document.createElement("p");
