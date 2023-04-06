@@ -38,7 +38,7 @@ function success(text, result) {
     reader.remove();
 
     let data = {
-      barcode: text,
+      barcode: text                   //Object 'data' takes 
     };
 
     fetch("/API/getListGlobalItems", {
