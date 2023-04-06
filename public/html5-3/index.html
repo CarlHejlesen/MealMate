@@ -32,8 +32,8 @@
       while (reader.firstChild) {
         reader.removeChild(reader.firstChild);
       }
-      reader.appendChild(h2);
-      reader.appendChild(p);
+      document.body.appendChild(h2);
+      document.body.appendChild(p);
 
       scanner.clear();
       reader.remove();

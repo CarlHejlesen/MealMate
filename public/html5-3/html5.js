@@ -18,6 +18,7 @@ document.getElementById('startButton').addEventListener('click', () => {
 //FUNCTIONS
 function onScanSuccess(decodedText, decodedResult) {
   // handle the scanned code as you like, for example:
+  alert(`Code matched = ${decodedText}`);
   console.log(`Code matched = ${decodedText}`, decodedResult);
 }
 
